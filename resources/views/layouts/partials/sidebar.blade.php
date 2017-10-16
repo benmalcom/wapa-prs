@@ -81,13 +81,13 @@
                         </ul>
                     </li>
 
-                    <li>
+                    {{--<li>
                         <a href="#"><i class="fa fa-tasks"></i> <span>Short-term Skill Program</span></a>
                         <ul>
                             <li><a href="{{url('/short-term-skills')}}"><i class="fa fa-eye"></i> View All</a></li>
                             <li><a href="{{url('/short-term-skills/create')}}"><i class="fa fa-plus"></i> Add New</a></li>
                         </ul>
-                    </li>
+                    </li>--}}
                     @endrole
 
 
@@ -139,6 +139,22 @@
                         </ul>
                     </li>
                 @endrole
+
+
+                    @role(\App\UserType::PRINCIPAL.'|'.\App\UserType::DEVELOPER)
+                    {{--Poverty Alleviation Department--}}
+
+                    <li class="navigation-header"><span>Poverty Alleviation Department</span> <i class="fa fa-female" title="Main pages"></i></li>
+
+                    <li>
+                        <a href="#"><i class="fa fa-tasks"></i> <span>Vocational Training & Skill</span></a>
+                        <ul>
+                            <li><a href="{{url('/vocational-training-skills')}}"><i class="fa fa-eye"></i> View All</a></li>
+                            <li><a href="{{url('/vocational-training-skills/create')}}"><i class="fa fa-plus"></i> Add New</a></li>
+                        </ul>
+                    </li>
+
+                    @endrole
 
                 @role(\App\UserType::PRS.'|'.\App\UserType::DEVELOPER)
                     <li class="navigation-header"><span>PRS</span> <i class="fa fa-female" title="Main pages"></i></li>
