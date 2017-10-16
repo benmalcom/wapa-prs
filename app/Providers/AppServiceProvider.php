@@ -5,7 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Hashids\Hashids;
 use App;
-
+use Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,6 +17,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        Schema::defaultStringLength(191);
+
         if(!\App::runningInConsole()){
             view()->share('hashIds', new Hashids(env('APP_KEY'), 10, env('APP_CHAR')));
             view()->share('appName', 'PRS-WAPA');
