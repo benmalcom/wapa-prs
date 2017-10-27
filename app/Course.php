@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
     //
+    const title = "Courses";
     protected $fillable = [
         'name'
     ];

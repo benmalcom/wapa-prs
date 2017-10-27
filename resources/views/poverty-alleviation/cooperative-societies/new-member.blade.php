@@ -38,21 +38,21 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">First Name</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" placeholder="First Name" name="first_name">
+                            <input type="text" class="form-control" value="{{ old('first_name') }}" placeholder="First Name" name="first_name">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Last Name</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" placeholder="Last Name" name="last_name">
+                            <input type="text" class="form-control" value="{{ old('last_name') }}" placeholder="Last Name" name="last_name">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Phone No</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" placeholder="Phone Number" name="mobile">
+                            <input type="text" class="form-control" value="{{ old('mobile') }}" placeholder="Phone Number" name="mobile">
                         </div>
                     </div>
 

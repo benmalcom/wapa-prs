@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class VocationalTrainingSkill extends Model
 {
     //
+    const title = "Vocational Training and Skills";
     protected $table = "vocational_training_skills";
 
     protected $fillable = [

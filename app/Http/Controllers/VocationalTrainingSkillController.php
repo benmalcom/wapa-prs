@@ -7,13 +7,18 @@ use App\EducationalBackground;
 use App\Lga;
 use App\SkillAcquisitionCenter;
 use App\State;
+use App\Utils\RouteRoleUtils;
 use App\VocationalTrainingSkill;
 use Illuminate\Http\Request;
 use Validator;
-use Carbon\Carbon;
 
 class VocationalTrainingSkillController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware([RouteRoleUtils::SKILL_ACQUISITION, RouteRoleUtils::PRINCIPAL])->except('index');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,12 +27,12 @@ class VocationalTrainingSkillController extends Controller
     public function index()
     {
         //
-        $members = VocationalTrainingSkill::orderBy('created_at','desc')
-                    ->with(['educationalBackground'=>function($query){
-                        $query->where('model' , 'VocationalTrainingSkill');
-                    }])->with('state','lga','course','center')
-                    ->paginate(self::ITEMS_PER_PAGE);
-        return view('poverty-alleviation.vocational-training.list', compact('members'));
+        $members = VocationalTrainingSkill::orderBy('created_at', 'desc')
+            ->with(['educationalBackground' => function ($query) {
+                $query->where('model', VocationalTrainingSkill::class);
+            }])->with('state', 'lga', 'course', 'center')
+            ->paginate(self::ITEMS_PER_PAGE);
+        return view('skill-acquisition.vocational-training.list', compact('members'));
     }
 
     /**
@@ -42,13 +47,13 @@ class VocationalTrainingSkillController extends Controller
         $centers = SkillAcquisitionCenter::all();
         $states = State::all();
         $lgas = Lga::all();
-        return view('poverty-alleviation.vocational-training.create', compact('courses','centers','states','lgas'));
+        return view('skill-acquisition.vocational-training.create', compact('courses', 'centers', 'states', 'lgas'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -58,87 +63,118 @@ class VocationalTrainingSkillController extends Controller
         $rules = VocationalTrainingSkill::createRules();
         $inputs = $request->all();
         $educations = null;
-        if($request->has('education')){
-            $rules = array_merge($rules,EducationalBackground::createRules());
-            $this->validate($request,$rules);
+        if ($request->has('education')) {
+            $rules = array_merge($rules, EducationalBackground::createRules());
+            $this->validate($request, $rules);
             $educations = $request->get('education');
         }
 
         $data = VocationalTrainingSkill::create($inputs);
-        if(!is_null($educations)){
+        if (!is_null($educations) && is_array($educations)) {
 
-            foreach ($educations as &$education){
-                $education['model'] = 'VocationalTrainingSkill';
+            foreach ($educations as &$education) {
+                $education['model'] = VocationalTrainingSkill::class;
                 $education['model_id'] = $data->id;
-                $education['created_at'] = Carbon::now(); //Model bulk insert does not create timestamps
-                $education['updated_at'] = Carbon::now(); //Model bulk insert does not create timestamps
+                EducationalBackground::create($education);
             }
-            EducationalBackground::insert($educations);
         }
 
-        $this->setFlashMessage("Registration successful!",1);
+        $this->setFlashMessage("Registration successful!", 1);
         return redirect()->route('vocational-training-skills.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         //
         $vocationalTraining = VocationalTrainingSkill::find($id);
-        if(is_null($vocationalTraining)){
+        if (is_null($vocationalTraining)) {
             return abort(404);
         }
-        return view('poverty-alleviation.vocational-training.view',compact('vocationalTraining'));
+        return view('skill-acquisition.vocational-training.view', compact('vocationalTraining'));
 
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         //
-        $vocationalTraining = VocationalTrainingSkill::find($id);
-        if(is_null($vocationalTraining)){
+
+        $vocationalTraining = VocationalTrainingSkill::where('id', $id)->orderBy('created_at', 'desc')
+            ->with(['educationalBackground' => function ($query) {
+                $query->where('model', VocationalTrainingSkill::class);
+            }])->with('state', 'lga', 'course', 'center')
+            ->first();
+        if (is_null($vocationalTraining)) {
             return abort(404);
         }
-        return view('poverty-alleviation.vocational-training.edit',compact('vocationalTraining'));
+        $courses = Course::all();
+        $centers = SkillAcquisitionCenter::all();
+        $states = State::all();
+        $lgas = Lga::all();
+        return view('skill-acquisition.vocational-training.edit', compact('vocationalTraining', 'courses', 'centers', 'states', 'lgas'));
 
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         //
+        $educations = null;
         $vocationalTraining = VocationalTrainingSkill::find($id);
 
-        if(is_null($vocationalTraining)){
+        if (is_null($vocationalTraining)) {
             return abort(404);
         }
 
         $vocationalTraining->update($request->all());
-        $this->setFlashMessage("Record updated",1);
+        if ($request->has('education')) {
+            $educations = $request->get('education');
+            if (!is_null($educations) && is_array($educations)) {
+
+                foreach ($educations as &$education) {
+                    if (array_key_exists('id', $education)) {
+                        $update = $education;
+                        unset($update['id']);
+                        EducationalBackground::where('id', $education['id'])->update($update);
+                    } else {
+                        $validator = Validator::make($education, EducationalBackground::createRulesSingle());
+                        if ($validator->passes()) {
+                            $education['model'] = VocationalTrainingSkill::class;
+                            $education['model_id'] = $vocationalTraining->id;
+                            EducationalBackground::create($education);
+                        }
+
+                    }
+                }
+            }
+
+        }
+
+        $this->setFlashMessage("Record updated", 1);
         return redirect()->route('vocational-training-skills.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -146,12 +182,12 @@ class VocationalTrainingSkillController extends Controller
         //
         $vocationalTraining = VocationalTrainingSkill::find($id);
 
-        if(is_null($vocationalTraining)){
+        if (is_null($vocationalTraining)) {
             return abort(404);
         }
 
         $vocationalTraining->delete();
-        $this->setFlashMessage("Record deleted",1);
+        $this->setFlashMessage("Record deleted", 1);
         return redirect()->route('vocational-training-skills.index');
     }
 }

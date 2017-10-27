@@ -3,7 +3,9 @@
 <script>
     $(function () {
         $(document).on('focus', '[data-toggle="datepicker"]',function () {
-            $(this).datepicker();
+            $(this).datepicker({
+                autoHide: true
+            });
         });
     });
 

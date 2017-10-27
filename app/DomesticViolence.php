@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class DomesticViolence extends Model
 {
     //
-
+    const title = "Domestic Violence";
     protected $fillable = [
         'first_name',
         'last_name',

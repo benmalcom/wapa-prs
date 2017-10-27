@@ -27,7 +27,7 @@ class Controller extends BaseController
             $class1 = 'alert-danger';
             $class2 = 'fa fa-times';
         }
-        $output = '<div class="col-md-4 edge fade m-5 in text-center app-info shadow simplebox alert ' . $class1 . '" id="flash_message"><small>'.
+        $output = '<div class="col-md-4 m-5 edge-r fade in text-center app-info shadow simplebox blade alert ' . $class1 . '" id="flash_message"><small>'.
             '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"><small>x</small></button>'.
             '<i class="' . $class2 . '"></i> ' .
             '<strong>' . $message . '</strong>' .

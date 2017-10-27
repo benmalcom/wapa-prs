@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\SkillAcquisitionCenter;
 use App\User;
 use App\UserType;
 use Hash;
@@ -19,7 +20,7 @@ class UserController extends Controller
     {
         //
         $users = User::orderBy('created_at','desc')->paginate(self::ITEMS_PER_PAGE);
-        return view('user.list', compact('users'));
+        return view('master-records.user.list', compact('users'));
     }
 
     /**
@@ -31,7 +32,8 @@ class UserController extends Controller
     {
         //
         $user_types = UserType::all();
-        return view('user.create', compact('user_types'));
+        $centers = SkillAcquisitionCenter::all();
+        return view('master-records.user.create', compact('user_types','centers'));
     }
 
     /**
@@ -51,6 +53,13 @@ class UserController extends Controller
         if(!is_null($userType)){
             $user->assignRole($userType->role_name);
         }
+
+        if($request->has('center_id')){
+            $center = SkillAcquisitionCenter::find($request->get('center_id'));
+            if(!is_null($center)){
+                $center->update(['user_id'=>$user->id]);
+            }
+        }
         $this->setFlashMessage("You created a new user",1);
         return redirect()->route('users.index');
     }
@@ -68,7 +77,7 @@ class UserController extends Controller
             $this->setFlashMessage("This user does not exist on our system",2);
             return redirect()->back();
         }
-        return view('user.view',compact('user'));
+        return view('master-records.user.view',compact('user'));
     }
 
     /**
@@ -84,7 +93,7 @@ class UserController extends Controller
             $this->setFlashMessage("This user does not exist on our system",2);
             return redirect()->back();
         }
-        return view('user.edit',compact('user'));
+        return view('master-records.user.edit',compact('user'));
     }
 
     /**
@@ -107,7 +116,7 @@ class UserController extends Controller
         }
         $user->update($request->all());
         $this->setFlashMessage("Updated successfully",1);
-        return redirect('/');
+        return redirect()->back();
     }
 
     /**
@@ -129,7 +138,7 @@ class UserController extends Controller
     }
 
     public function getProfile(){
-        return view('user.profile');
+        return view('master-records.user.profile');
     }
 
     public function postProfile(Request $request){
@@ -147,7 +156,7 @@ class UserController extends Controller
         ]);
         $user = Auth::user();
         $inputs = $request->all();
-        if (Hash::check($inputs['old_password'], $user->password)) {
+        if (!Hash::check($inputs['old_password'], $user->password)) {
             // The passwords match...
             $user->password = bcrypt($inputs['password']);
             $user->save();

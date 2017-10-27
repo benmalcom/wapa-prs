@@ -229,6 +229,7 @@ return [
         'Hashids' => Vinkla\Hashids\Facades\Hashids::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Active' => Pyaesone17\ActiveState\ActiveFacade::class,
 
     ],
 

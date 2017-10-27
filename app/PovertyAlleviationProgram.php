@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class PovertyAlleviationProgram extends Model
 {
     //
+    const title = "Poverty Alleviation Program";
     protected $fillable = [
         'first_name',
         'last_name',

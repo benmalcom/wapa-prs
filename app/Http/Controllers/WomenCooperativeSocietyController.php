@@ -3,11 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Member;
+use App\Utils\RouteRoleUtils;
 use App\WomenCooperativeSociety;
 use Illuminate\Http\Request;
 
 class WomenCooperativeSocietyController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware([RouteRoleUtils::POVERTY_ALLEVIATION])->except('index');
+    }
+
     /**
      * Display a listing of the resource.
      *

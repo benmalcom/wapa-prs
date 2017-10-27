@@ -32,7 +32,9 @@
                     <th>Name</th>
                     <th>Registrar</th>
                     <th>Address</th>
+                    @if(Auth::user()->hasRole([\App\UserType::WOMEN_DEPT,\App\UserType::DEVELOPER]))
                     <th>Actions</th>
+                    @endif
                 </tr>
                 </thead>
                 <tbody>
@@ -43,13 +45,14 @@
                             <td>{{ $ngo->name }}</td>
                             <td>{{ $ngo->registrar }}</td>
                             <td>{{ $ngo->address }}</td>
+                            @if(Auth::user()->hasAnyRole([\App\UserType::WOMEN_DEPT,\App\UserType::DEVELOPER]))
                             <td colspan="2">
                                 <a class="btn btn-info btn-xs" href="{{ route('ngos.edit',$ngo->id) }}"><i class="fa fa-pencil"></i> Edit</a>
                                 {!! Form::open(['method' => 'DELETE','route' => ['user-types.destroy', $ngo->id],'class'=>'inline']) !!}
                                 {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
                                 {!! Form::close() !!}
                             </td>
-
+                            @endif
                         </tr>
                     @endforeach
                 @endif

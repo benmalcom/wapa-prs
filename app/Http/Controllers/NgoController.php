@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Ngo;
+use App\Utils\RouteRoleUtils;
 use Illuminate\Http\Request;
 
 class NgoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware([RouteRoleUtils::WOMEN_DEPARTMENT])->except('index');
+    }
+
     /**
      * Display a listing of the resource.
      *

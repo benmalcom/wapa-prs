@@ -80,9 +80,7 @@
                             <div class="form-group">
                                 <label class="control-label col-lg-3">Address</label>
                                 <div class="col-lg-9">
-                                    <textarea rows="3" class="form-control" required placeholder="Address" name="address">
-                                        {{ $domesticViolence->address }}
-                                    </textarea>
+                                    <textarea rows="3" class="form-control" required placeholder="Address" name="address">{{ $domesticViolence->address }}</textarea>
                                 </div>
                             </div>
                         </div>

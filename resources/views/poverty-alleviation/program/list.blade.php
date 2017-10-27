@@ -44,7 +44,9 @@
                     <th>Next of Kin Mobile</th>
                     <th>Next of Kin Email</th>
                     <th>Next of Kin Address</th>
+                    @can(Auth::user()->hasRole(\App\UserType::POVERTY_ALLEVIATION))
                     <th>Actions</th>
+                    @endcan
                 </tr>
                 </thead>
                 <tbody>
@@ -53,27 +55,29 @@
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $program->first_name.' '.$program->last_name }}</td>
-                            <td>{{ $program->mobile }}</td>
-                            <td>{{ $program->age }}</td>
-                            <td>{{ $program->lga_of_residence }}</td>
-                            <td>{{ $program->address }}</td>
-                            <td>{{ $program->number_of_children }}</td>
-                            <td>{{ $program->type_of_work }}</td>
-                            <td>{{ $program->place_of_work }}</td>
-                            <td>{{ $program->educational_qualification }}</td>
-                            <td>{{ $program->country }}</td>
-                            <td>{{ $program->state->name}}</td>
-                            <td>{{ $program->lga->name}}</td>
-                            <td>{{ $program->nok_mobile}}</td>
-                            <td>{{ $program->nok_email}}</td>
-                            <td>{{ $program->nok_address}}</td>
+                            <td>{{ $program->mobile ? $program->mobile : 'N/A' }}</td>
+                            <td>{{ $program->age ? $program->age : 'N/A' }}</td>
+                            <td>{{ $program->lga_of_residence ? $program->lga_of_residence : 'N/A' }}</td>
+                            <td>{{ $program->address ? $program->address : 'N/A'}}</td>
+                            <td>{{ $program->number_of_children ? $program->number_of_children : 'N/A' }}</td>
+                            <td>{{ $program->type_of_work ? $program->type_of_work : 'N/A' }}</td>
+                            <td>{{ $program->place_of_work ? $program->place_of_work : 'N/A'}}</td>
+                            <td>{{ $program->educational_qualification ? $program->educational_qualification : 'N/A'}}</td>
+                            <td>{{ $program->country ? $program->country : 'N/A'}}</td>
+                            <td>{{ $program->state->name ? $program->state->name : 'N/A'}}</td>
+                            <td>{{ $program->lga->name ? $program->lga->name : 'N/A'}}</td>
+                            <td>{{ $program->nok_mobile ? $program->nok_mobile : 'N/A'}}</td>
+                            <td>{{ $program->nok_email ? $program->nok_email : 'N/A'}}</td>
+                            <td>{{ $program->nok_address ? $program->nok_address : 'N/A'}}</td>
+
+                            @can(Auth::user()->hasRole(\App\UserType::POVERTY_ALLEVIATION))
                             <td colspan="2">
                                 <a class="btn btn-info btn-xs" href="{{ route('programs.edit',$program->id) }}"><i class="fa fa-pencil"></i> Edit</a>
                                 {!! Form::open(['method' => 'DELETE','route' => ['programs.destroy', $program->id],'class'=>'inline']) !!}
                                 {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
                                 {!! Form::close() !!}
                             </td>
-
+@                           @endcan
                         </tr>
                     @endforeach
                 @endif

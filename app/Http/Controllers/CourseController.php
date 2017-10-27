@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\Utils\RouteRoleUtils;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware([RouteRoleUtils::SKILL_ACQUISITION])->except('index');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +22,7 @@ class CourseController extends Controller
     {
         //
         $courses = Course::orderBy('created_at','desc')->paginate(self::ITEMS_PER_PAGE);
-        return view('poverty-alleviation.courses.list', compact('courses'));
+        return view('master-records.courses.list', compact('courses'));
     }
 
     /**
@@ -27,7 +33,7 @@ class CourseController extends Controller
     public function create()
     {
         //
-        return view('poverty-alleviation.courses.create');
+        return view('master-records.courses.create');
     }
 
     /**
@@ -59,7 +65,7 @@ class CourseController extends Controller
             $this->setFlashMessage("This course does not exist on our system",2);
             return redirect()->back();
         }
-        return view('poverty-alleviation.courses.view',compact('course'));
+        return view('master-records.courses.view',compact('course'));
     }
 
     /**
@@ -75,7 +81,7 @@ class CourseController extends Controller
             $this->setFlashMessage("This course does not exist on our system",2);
             return redirect()->back();
         }
-        return view('poverty-alleviation.courses.edit',compact('course'));
+        return view('master-records.courses.edit',compact('course'));
     }
 
     /**

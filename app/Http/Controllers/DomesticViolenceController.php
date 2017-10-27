@@ -5,10 +5,16 @@ namespace App\Http\Controllers;
 use App\DomesticViolence;
 use App\Lga;
 use App\State;
+use App\Utils\RouteRoleUtils;
 use Illuminate\Http\Request;
 
 class DomesticViolenceController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware([RouteRoleUtils::WOMEN_DEPARTMENT])->except('index');
+    }
+
     /**
      * Display a listing of the resource.
      *

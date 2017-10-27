@@ -9,6 +9,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
+    const name = "Users";
     use Notifiable;
     use HasRoles;
 

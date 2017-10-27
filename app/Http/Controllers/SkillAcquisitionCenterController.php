@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\SkillAcquisitionCenter;
+use App\Utils\RouteRoleUtils;
 use Illuminate\Http\Request;
 
 class SkillAcquisitionCenterController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware([RouteRoleUtils::SKILL_ACQUISITION])->except('index');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +22,7 @@ class SkillAcquisitionCenterController extends Controller
     {
         //
         $centers = SkillAcquisitionCenter::orderBy('name')->paginate(self::ITEMS_PER_PAGE);
-        return view('poverty-alleviation.centers.list', compact('centers'));
+        return view('master-records.centers.list', compact('centers'));
     }
 
     /**
@@ -27,7 +33,7 @@ class SkillAcquisitionCenterController extends Controller
     public function create()
     {
         //
-        return view('poverty-alleviation.centers.create');
+        return view('master-records.centers.create');
 
     }
 
@@ -60,7 +66,7 @@ class SkillAcquisitionCenterController extends Controller
             $this->setFlashMessage("This center does not exist on our system",2);
             return redirect()->back();
         }
-        return view('poverty-alleviation.centers.view',compact('skillAcquisitionCenter'));
+        return view('master-records.centers.view',compact('skillAcquisitionCenter'));
     }
 
     /**
@@ -76,7 +82,7 @@ class SkillAcquisitionCenterController extends Controller
             $this->setFlashMessage("This center does not exist on our system",2);
             return redirect()->back();
         }
-        return view('poverty-alleviation.centers.edit',compact('skillAcquisitionCenter'));
+        return view('master-records.centers.edit',compact('skillAcquisitionCenter'));
     }
 
     /**

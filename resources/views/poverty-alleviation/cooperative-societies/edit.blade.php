@@ -44,16 +44,14 @@
                     <div class="form-group">
                         <label class="control-label col-lg-2">Division</label>
                         <div class="col-lg-10">
-                            <textarea rows="3" class="form-control" placeholder="Location/Division" name="division">
-                                {{ $womenCooperativeSociety->division }}
-                            </textarea>
+                            <textarea rows="3" class="form-control" placeholder="Location/Division" name="division">{{ $womenCooperativeSociety->division }}</textarea>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-lg-2">Sub-Division</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" required value="{{ $womenCooperativeSociety->sub_division }}" placeholder="Sub-Division(Optional)"  name="sub_division">
+                            <input type="text" class="form-control"  value="{{ $womenCooperativeSociety->sub_division }}" placeholder="Sub-Division(Optional)"  name="sub_division">
                         </div>
                     </div>
                     <div class="text-right">

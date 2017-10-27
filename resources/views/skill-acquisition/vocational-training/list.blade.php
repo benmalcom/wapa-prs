@@ -51,7 +51,10 @@
                     <th>Next of Kin Mobile</th>
                     <th>Next of Kin Email</th>
                     <th>Next of Kin Address</th>
+                    @if(Auth::user()->hasAnyRole([\App\UserType::SKILL_ACQUISITION,\App\UserType::DEVELOPER]))
+
                     <th>Actions</th>
+                    @endif
                 </tr>
                 </thead>
                 <tbody>
@@ -60,42 +63,59 @@
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $member->first_name.' '.$member->last_name }}</td>
-                            <td>{{ $member->mobile }}</td>
-                            <td>{{ $member->lasrra_no }}</td>
-                            <td>{{ $member->course->name }}</td>
-                            <td>{{ $member->center->name }}</td>
-                            <td>{{ $member->date_of_birth }}</td>
-                            <td>{{ $member->place_of_birth }}</td>
+                            <td>{{ $member->mobile ? $member->mobile : 'N/A' }}</td>
+                            <td>{{ $member->lasrra_no ? $member->lasrra_no : 'N/A'}}</td>
+                            <td>{{ $member->course->name ? $member->course->name : 'N/A'}}</td>
+                            <td>{{ $member->center->name ? $member->center->name : 'N/A'}}</td>
+                            <td>{{ $member->date_of_birth ? $member->date_of_birth : 'N/A'}}</td>
+                            <td>{{ $member->place_of_birth ? $member->place_of_birth : 'N/A'}}</td>
 
-                            <td>{{ $member->country }}</td>
-                            <td>{{ $member->state ? $member->state->name : 'Nil'}}</td>
-                            <td>{{ $member->lga ? $member->lga->name : 'Nil'}}</td>
-                            <td>{{ $member->address }}</td>
+                            <td>{{ $member->country ? $member->country : 'N/A'}}</td>
+                            <td>{{ $member->state ? $member->state->name : 'N/A'}}</td>
+                            <td>{{ $member->lga ? $member->lga->name : 'N/A'}}</td>
+                            <td>{{ $member->address ? $member->address : 'N/A' }}</td>
                             <td>{{ $member->marital_status}}</td>
-                            <td>{{ $member->disability.' '.$member->disability_nature}}</td>
+                            <td>{{ $member->disability_nature ? $member->disability_nature : 'N/A'}}</td>
                             <td>
                                 @if(count ($member->educationalBackground) > 0)
-                                    @foreach($member->educationalBackground as $value)
-                                        <p>{{ $value->qualification.' - '.$value->institution.', from '.$value->from.' to '.$value->to }}</p>
-                                    @endforeach
+                                    <table class="table table-bordered border-double table-condensed mt-5">
+                                        <tr>
+                                            <th>Institution</th>
+                                            <th>Qualification</th>
+                                            <th>From</th>
+                                            <th>To</th>
+                                        </tr>
+                                        @foreach($member->educationalBackground as $value)
+                                            <tr>
+                                                <td>{{ $value->institution }}</td>
+                                                <td>{{ $value->qualification }}</td>
+                                                <td>{{ $value->from }}</td>
+                                                <td>{{ $value->to }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </table>
                                 @else
-                                    Nil
+                                    N/A
                                 @endif
                             </td>
 
 
-                            <td>{{ $member->nok_name}}</td>
-                            <td>{{ $member->nok_relationship}}</td>
-                            <td>{{ $member->nok_mobile}}</td>
-                            <td>{{ $member->nok_email}}</td>
-                            <td>{{ $member->nok_address}}</td>
+                            <td>{{ $member->nok_name ? $member->nok_name : 'N/A'}}</td>
+                            <td>{{ $member->nok_relationship ? $member->nok_relationship : 'N/A'}}</td>
+                            <td>{{ $member->nok_mobile ? $member->nok_mobile : 'N/A'}}</td>
+                            <td>{{ $member->nok_email ? $member->nok_email : 'N/A'}}</td>
+                            <td>{{ $member->nok_address ? $member->nok_address : 'N/A'}}</td>
+
+                            @if(Auth::user()->hasAnyRole([\App\UserType::SKILL_ACQUISITION,\App\UserType::DEVELOPER]))
+
+
                             <td colspan="2">
                                 <a class="btn btn-info btn-xs" href="{{ route('vocational-training-skills.edit',$member->id) }}"><i class="fa fa-pencil"></i> Edit</a>
                                 {!! Form::open(['method' => 'DELETE','route' => ['vocational-training-skills.destroy', $member->id],'class'=>'inline']) !!}
                                 {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
                                 {!! Form::close() !!}
                             </td>
-
+                            @endif
                         </tr>
                     @endforeach
                 @endif

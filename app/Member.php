@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Member extends Model
 {
     //
+    const title = "Cooperative Society Members";
     protected $table = "cooperative_society_members";
     protected $fillable = [
         'first_name','last_name','mobile','skill','cooperative_society_id'

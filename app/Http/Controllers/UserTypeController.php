@@ -17,7 +17,7 @@ class UserTypeController extends Controller
     {
         //
         $user_types = UserType::all();
-        return view('user-type.list', compact('user_types'));
+        return view('master-records.user-type.list', compact('user_types'));
     }
 
     /**
@@ -70,7 +70,7 @@ class UserTypeController extends Controller
         //
         $userType = UserType::find($id);
         $user_types = UserType::all();
-        return view('user-type.edit',compact('userType','user_types'));
+        return view('master-records.user-type.edit',compact('userType','user_types'));
     }
 
     /**

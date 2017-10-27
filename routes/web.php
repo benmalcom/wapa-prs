@@ -1,5 +1,5 @@
 <?php
-use App\UserType;
+use App\Utils\RouteRoleUtils;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,32 +21,45 @@ Route::get('/', function () {
 
 Route::resource('user-types', 'UserTypeController');
 
-$developer = 'role:'.UserType::DEVELOPER;
-$poverty_alleviation = 'role:'.UserType::POVERTY_ALLEVIATION.'|'.UserType::DEVELOPER;
-$women_dept = 'role:'.UserType::WOMEN_DEPT.'|'.UserType::DEVELOPER;
-$prs = 'role:'.UserType::PRS.'|'.UserType::DEVELOPER;
-$principal = 'role:'.UserType::PRINCIPAL.'|'.UserType::DEVELOPER;
 
-Route::group(['middleware'=>['auth',$poverty_alleviation]], function () {
+
+Route::group(['middleware'=>'auth'], function () {
 
     /*PovertyAlleviation*/
-    Route::resource('skill-acquisition-centers', 'SkillAcquisitionCenterController');
-    Route::resource('courses', 'CourseController');
-    Route::resource('vocational-training-skills', 'VocationalTrainingSkillController');
-    Route::get('cooperative-societies/{id}/new-member', 'WomenCooperativeSocietyController@getNewMember');
-    Route::post('cooperative-societies/members', 'WomenCooperativeSocietyController@postMembers');
-    Route::get('cooperative-societies/{id}/members', 'WomenCooperativeSocietyController@getMembers');
+
+    Route::get('cooperative-societies/{id}/new-member', 'WomenCooperativeSocietyController@getNewMember')
+        ->name('newMember');
+    Route::post('cooperative-societies/members', 'WomenCooperativeSocietyController@postMembers')
+        ->name('postMember');
+    Route::get('cooperative-societies/{id}/members', 'WomenCooperativeSocietyController@getMembers')
+        ->name('getMembers');
     Route::resource('cooperative-societies', 'WomenCooperativeSocietyController');
     Route::resource('programs', 'PovertyAlleviationProgramController');
 
+
+});
+
+Route::group(['middleware'=> 'auth'], function () {
+    Route::resource('skill-acquisition-centers', 'SkillAcquisitionCenterController');
+    Route::resource('courses', 'CourseController');
+    Route::resource('vocational-training-skills', 'VocationalTrainingSkillController');
 });
 
 
-Route::group(['middleware'=>['auth',$women_dept]], function () {
+
+
+Route::group(['middleware'=>'auth'], function () {
 
     /*Women Dept*/
     Route::resource('ngos', 'NgoController');
     Route::resource('domestic-violences', 'DomesticViolenceController');
+    Route::resource('short-term-skills', 'ShortTermSkillController');
+
+    Route::resource('advocacies', 'AdvocacyController');
+    Route::resource('advocacies.attendees', 'AdvocacyAttendeeController');
+
+    Route::resource('sensitizations', 'SensitizationController');
+    Route::resource('sensitizations.attendees', 'SensitizationAttendeeController');
 });
 
 

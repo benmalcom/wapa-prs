@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class SkillAcquisitionCenter extends Model
 {
     //
+    const title = "Skill Acquisition Centers";
+
     protected $fillable = [
-        'name','address','mobile'
+        'name','address','mobile','user_id'
     ];
 
     public static function createRules(){

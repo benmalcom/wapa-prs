@@ -42,7 +42,9 @@
                     <th>Country</th>
                     <th>State</th>
                     <th>Lga</th>
+                    @if(Auth::user()->hasAnyRole([\App\UserType::WOMEN_DEPT,\App\UserType::DEVELOPER]))
                     <th>Actions</th>
+                    @endif
                 </tr>
                 </thead>
                 <tbody>
@@ -63,13 +65,14 @@
                             <td>{{ $violence->country }}</td>
                             <td>{{ $violence->state->name}}</td>
                             <td>{{ $violence->lga->name}}</td>
+                            @if(Auth::user()->hasAnyRole([\App\UserType::WOMEN_DEPT,\App\UserType::DEVELOPER]))
                             <td colspan="2">
                                 <a class="btn btn-info btn-xs" href="{{ route('domestic-violences.edit',$violence->id) }}"><i class="fa fa-pencil"></i> Edit</a>
                                 {!! Form::open(['method' => 'DELETE','route' => ['domestic-violences.destroy', $violence->id],'class'=>'inline']) !!}
                                 {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
                                 {!! Form::close() !!}
                             </td>
-
+                            @endif
                         </tr>
                     @endforeach
                 @endif

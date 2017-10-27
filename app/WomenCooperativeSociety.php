@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class WomenCooperativeSociety extends Model
 {
 
+    const title = "Women Cooperative Societies";
     protected $table = 'women_cooperative_societies';
     //
     protected $fillable = [
