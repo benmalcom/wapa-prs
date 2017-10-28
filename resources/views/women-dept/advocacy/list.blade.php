@@ -30,7 +30,7 @@
                 <tr>
                     <th>#</th>
                     <th>Title</th>
-                    @if(Auth::user()->hasAnyRole([\App\UserType::WOMEN_DEPT,\App\UserType::DEVELOPER]))
+                    @if(Auth::user()->hasAnyRole([\App\UserType::WOMEN_DEPT,\App\UserType::DEVELOPER, \App\UserType::ADMIN]))
                     <th>Actions</th>
                     @endif
                 </tr>
@@ -41,7 +41,8 @@
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $advocacy->title }}</td>
-                            @if(Auth::user()->hasAnyRole([\App\UserType::WOMEN_DEPT,\App\UserType::DEVELOPER]))
+                            @if(Auth::user()->hasAnyRole([\App\UserType::WOMEN_DEPT,\App\UserType::DEVELOPER, \App\UserType::ADMIN]))
+
                             <td colspan="2">
                                 <a class="btn btn-success btn-xs" href="{{ route('advocacies.attendees.create',$advocacy->id) }}"><i class="fa fa-plus"></i> Attendee</a>
                                 <a class="btn btn-default btn-xs" href="{{ route('advocacies.attendees.index',$advocacy->id) }}"><i class="fa fa-eye"></i> Attendees <span class="badge">{{ $advocacy->attendees_count }}</span></a>

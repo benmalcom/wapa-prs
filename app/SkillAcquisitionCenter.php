@@ -17,7 +17,7 @@ class SkillAcquisitionCenter extends Model
         return array(
             'name' => 'required',
             'address' => 'required',
-            'mobile' => ['required','regex:/^(\+2348|2348|08)[0-1][1-9][0-9]{7}$/']
+            'mobile' => ['required','regex:/^(\+234[7-9]|234[7-9]|0[7-9])[0-1][1-9][0-9]{7}$/']
         );
     }
 }

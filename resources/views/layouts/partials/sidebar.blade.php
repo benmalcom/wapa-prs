@@ -30,7 +30,7 @@
                 <ul class="navigation navigation-main navigation-accordion">
 
                     <!-- Main -->
-                    @role(\App\UserType::DEVELOPER)
+                    @role(\App\UserType::DEVELOPER.'|'.\App\UserType::ADMIN)
                     <li class="navigation-header"><span>Master Records</span> <i class="fa fa-female" title="Main pages"></i></li>
 {{--                    <li><a href="{{url('/')}}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>--}}
                     <li><a href="{{url('/user-types')}}"><i class="fa fa-user-plus"></i> <span>User Types</span></a></li>
@@ -64,7 +64,7 @@
 
                     {{--Women Department--}}
 
-                    @role(\App\UserType::WOMEN_DEPT.'|'.\App\UserType::DEVELOPER)
+                    @role(\App\UserType::WOMEN_DEPT.'|'.\App\UserType::DEVELOPER.'|'.\App\UserType::ADMIN)
 
                     <li class="navigation-header"><span>Women Department</span> <i class="fa fa-female" title="Main pages"></i></li>
 
@@ -112,7 +112,7 @@
 
 
 
-                    @role(\App\UserType::POVERTY_ALLEVIATION.'|'.\App\UserType::DEVELOPER)
+                    @role(\App\UserType::POVERTY_ALLEVIATION.'|'.\App\UserType::DEVELOPER.'|'.\App\UserType::ADMIN)
                     {{--Poverty Alleviation Department--}}
 
                     <li class="navigation-header"><span>Poverty Alleviation Department</span> <i class="fa fa-female" title="Main pages"></i></li>
@@ -134,27 +134,12 @@
                         </ul>
                     </li>
                 @endrole
-{{--
-
-                    @role(\App\UserType::PRINCIPAL.'|'.\App\UserType::DEVELOPER)
-                    --}}{{--Poverty Alleviation Department--}}{{--
-
-                    <li class="navigation-header"><span>Poverty Alleviation Department</span> <i class="fa fa-female" title="Main pages"></i></li>
-
-                    <li>
-                        <a href="#"><i class="fa fa-tasks"></i> <span>Vocational Training & Skill</span></a>
-                        <ul>
-                            <li><a href="{{url('/vocational-training-skills')}}"><i class="fa fa-eye"></i> View All</a></li>
-                            <li><a href="{{url('/vocational-training-skills/create')}}"><i class="fa fa-plus"></i> Add New</a></li>
-                        </ul>
-                    </li>
-
-                    @endrole--}}
 
                     {{--Skill Acquisition Development--}}
-                    @role(\App\UserType::SKILL_ACQUISITION)
+{{--
+                    @role(\App\UserType::SKILL_ACQUISITION.'|'.\App\UserType::DEVELOPER)
 
-                    <li class="navigation-header"><span>Skill Acquisition Developmemnt</span> <i class="fa fa-female" title="Main pages"></i></li>
+                    <li class="navigation-header"><span>Skill Acquisition Development</span> <i class="fa fa-female" title="Main pages"></i></li>
 
                     <li>
                         <a href="#"><i class="fa fa-user-plus"></i> <span>Center Principals</span></a>
@@ -164,9 +149,10 @@
                         </ul>
                     </li>
                     @endrole
+--}}
 
 
-                    @role(\App\UserType::PRINCIPAL.'|'.\App\UserType::SKILL_ACQUISITION)
+                    @role(\App\UserType::PRINCIPAL.'|'.\App\UserType::SKILL_ACQUISITION.'|'.\App\UserType::DEVELOPER.'|'.\App\UserType::ADMIN)
 
                     <li>
                         <a href="#"><i class="fa fa-tasks"></i> <span>Vocational Training & Skill</span></a>
@@ -178,13 +164,15 @@
                     @endrole
 
 
-                    @role(\App\UserType::PRS.'|'.\App\UserType::DEVELOPER)
+                    @role(\App\UserType::PRS.'|'.\App\UserType::DEVELOPER.'|'.\App\UserType::ADMIN)
                     <li class="navigation-header"><span>PRS</span> <i class="fa fa-female" title="Main pages"></i></li>
+                    <li class="{{ \App\Helper::setActive("advocacies") }}"><a href="{{url('/advocacies')}}"><i class="fa fa-users"></i> <span>Advocacies</span></a></li>
                     <li class="{{ \App\Helper::setActive("ngos") }}"><a href="{{url('/ngos')}}"><i class="fa fa-home"></i> <span>NGOs</span></a></li>
                     <li class="{{ \App\Helper::setActive("cooperative-societies") }}"><a href="{{url('/cooperative-societies')}}"><i class="fa fa-building"></i> <span>Women Cooperative Societies</span></a></li>
                     <li class="{{ \App\Helper::setActive("domestic-violences") }}"><a href="{{url('/domestic-violences')}}"><i class="fa fa-female"></i> <span>Violations</span></a></li>
                     <li class="{{ \App\Helper::setActive("vocational-training-skills") }}"><a href="{{url('/vocational-training-skills')}}"><i class="fa fa-tasks"></i> <span>Vocational Training & Skill</span></a></li>
                     <li class="{{ \App\Helper::setActive("programs") }}"><a href="{{url('/programs')}}"><i class="fa fa-female"></i> <span>Poverty Alleviation</span></a></li>
+                    <li class="{{ \App\Helper::setActive("sensitizations") }}"><a href="{{url('/sensitizations')}}"><i class="fa fa-users"></i> <span>Sensitizations</span></a></li>
                     <li class="{{ \App\Helper::setActive("short-term-skills") }}"><a href="{{url('/short-term-skills')}}"><i class="fa fa-tasks"></i> <span>Short-term Skill Program</span></a></li>
                     <!-- /main -->
                 @endrole

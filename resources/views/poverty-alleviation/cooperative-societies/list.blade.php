@@ -32,9 +32,9 @@
                     <th>Name</th>
                     <th>Division</th>
                     <th>Sub-Division</th>
-                    @can(Auth::user()->hasRole(\App\UserType::POVERTY_ALLEVIATION))
+                    @if(Auth::user()->hasAnyRole([\App\UserType::POVERTY_ALLEVIATION,\App\UserType::DEVELOPER,\App\UserType::ADMIN]))
                     <th>Actions</th>
-                    @endcan
+                    @endif
                 </tr>
                 </thead>
                 <tbody>
@@ -45,7 +45,7 @@
                             <td>{{ $society->name }}</td>
                             <td>{{ $society->division }}</td>
                             <td>{{ $society->sub_division ? $society->sub_division : 'N/A'}}</td>
-                            @can(Auth::user()->hasRole(\App\UserType::POVERTY_ALLEVIATION))
+                            @if(Auth::user()->hasAnyRole([\App\UserType::POVERTY_ALLEVIATION,\App\UserType::DEVELOPER,\App\UserType::ADMIN]))
                             <td colspan="2">
                                 <a class="btn btn-success btn-xs" href="{{ url('/cooperative-societies/'.$society->id.'/new-member') }}"><i class="fa fa-plus"></i> Member</a>
                                 <a class="btn btn-default btn-xs" href="{{ url('/cooperative-societies/'.$society->id.'/members') }}"><i class="fa fa-eye"></i> Members <span class="badge">{{ $society->members_count }}</span></a>
@@ -54,7 +54,7 @@
                                 {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
                                 {!! Form::close() !!}
                             </td>
-                            @endcan
+                            @endif
 
                         </tr>
                     @endforeach

@@ -6,6 +6,16 @@
             else{ $('.disability-nature').addClass('hidden'); }
         });
 
+        $('.edu-input').change(function () {
+            console.log("clicked");
+            var value = $(this).val();
+            console.log("value ",value);
+
+            if(value && value == "None") { $('.edu-input').not($(this)).prop("disabled",true); }
+            else{ $('.edu-input').prop("disabled",false); }
+        });
+
+
 
         $('.more-edu-btn').click(function () {
             var moreInputs = true;

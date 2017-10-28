@@ -42,7 +42,8 @@
                     <th>Country</th>
                     <th>State</th>
                     <th>Lga</th>
-                    @if(Auth::user()->hasAnyRole([\App\UserType::WOMEN_DEPT,\App\UserType::DEVELOPER]))
+                    @if(Auth::user()->hasAnyRole([\App\UserType::WOMEN_DEPT,\App\UserType::DEVELOPER, \App\UserType::ADMIN]))
+
                     <th>Actions</th>
                     @endif
                 </tr>
@@ -65,7 +66,8 @@
                             <td>{{ $violence->country }}</td>
                             <td>{{ $violence->state->name}}</td>
                             <td>{{ $violence->lga->name}}</td>
-                            @if(Auth::user()->hasAnyRole([\App\UserType::WOMEN_DEPT,\App\UserType::DEVELOPER]))
+                            @if(Auth::user()->hasAnyRole([\App\UserType::WOMEN_DEPT,\App\UserType::DEVELOPER, \App\UserType::ADMIN]))
+
                             <td colspan="2">
                                 <a class="btn btn-info btn-xs" href="{{ route('domestic-violences.edit',$violence->id) }}"><i class="fa fa-pencil"></i> Edit</a>
                                 {!! Form::open(['method' => 'DELETE','route' => ['domestic-violences.destroy', $violence->id],'class'=>'inline']) !!}

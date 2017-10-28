@@ -16,7 +16,7 @@ class AdvocacyAttendee extends Model
         return array(
             'first_name' => 'required',
             'last_name' => 'required',
-            'mobile' => 'required'
+            'mobile' => ['required','regex:/^(\+234[7-9]|234[7-9]|0[7-9])[0-1][1-9][0-9]{7}$/']
         );
     }
 

@@ -11,7 +11,7 @@
         <div class="breadcrumb-line breadcrumb-line-component">
             <ul class="breadcrumb">
                 <li><a href="{{ url('/') }}"><i class="icon-home2 position-left"></i> Home</a></li>
-                <li><a href="{{ url('/ngos') }}">Domestic Violence</a></li>
+                <li><a href="{{ url('/domestic-violences') }}">Domestic Violence</a></li>
                 <li class="active">New</li>
             </ul>
 
@@ -68,7 +68,12 @@
                             <div class="form-group">
                                 <label class="control-label col-lg-3">Age</label>
                                 <div class="col-lg-9">
-                                    <input type="number" class="form-control" required placeholder="Age" name="age">
+                                    <select class="form-control" required name="age">
+                                        <option value="">-- Select --</option>
+                                        @foreach(\App\PovertyAlleviationProgram::ages() as $value)
+                                            <option value="{{$value}}" @if(old('age') && old('age')== $value) selected @endif>{{$value}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">

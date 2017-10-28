@@ -44,7 +44,7 @@
                     <th>Next of Kin Mobile</th>
                     <th>Next of Kin Email</th>
                     <th>Next of Kin Address</th>
-                    @can(Auth::user()->hasRole(\App\UserType::POVERTY_ALLEVIATION))
+                    @can(Auth::user()->hasAnyRole([\App\UserType::POVERTY_ALLEVIATION,\App\UserType::ADMIN,\App\UserType::DEVELOPER]))
                     <th>Actions</th>
                     @endcan
                 </tr>
@@ -70,7 +70,7 @@
                             <td>{{ $program->nok_email ? $program->nok_email : 'N/A'}}</td>
                             <td>{{ $program->nok_address ? $program->nok_address : 'N/A'}}</td>
 
-                            @can(Auth::user()->hasRole(\App\UserType::POVERTY_ALLEVIATION))
+                            @can(Auth::user()->hasAnyRole([\App\UserType::POVERTY_ALLEVIATION,\App\UserType::ADMIN,\App\UserType::DEVELOPER]))
                             <td colspan="2">
                                 <a class="btn btn-info btn-xs" href="{{ route('programs.edit',$program->id) }}"><i class="fa fa-pencil"></i> Edit</a>
                                 {!! Form::open(['method' => 'DELETE','route' => ['programs.destroy', $program->id],'class'=>'inline']) !!}

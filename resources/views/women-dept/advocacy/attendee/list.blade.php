@@ -31,7 +31,7 @@
                     <th>#</th>
                     <th>Name</th>
                     <th>Mobile</th>
-                    @if(Auth::user()->hasAnyRole([\App\UserType::WOMEN_DEPT,\App\UserType::DEVELOPER]))
+                    @if(Auth::user()->hasAnyRole([\App\UserType::WOMEN_DEPT,\App\UserType::DEVELOPER, \App\UserType::ADMIN]))
                     <th>Actions</th>
                     @endif
                 </tr>
@@ -43,7 +43,7 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $attendee->last_name.' '.$attendee->first_name }}</td>
                             <td>{{ $attendee->mobile }}</td>
-                            @if(Auth::user()->hasAnyRole([\App\UserType::WOMEN_DEPT,\App\UserType::DEVELOPER]))
+                            @if(Auth::user()->hasAnyRole([\App\UserType::WOMEN_DEPT,\App\UserType::DEVELOPER, \App\UserType::ADMIN]))
                             <td colspan="2">
                                 <a class="btn btn-info btn-xs" href="{{ route('advocacies.attendees.edit', ['advocacy'=>$advocacy->id, 'attendee'=>$attendee->id]) }}"><i class="fa fa-pencil"></i> Edit</a>
                                 {!! Form::open(['method' => 'DELETE','route' => ['advocacies.attendees.destroy',$advocacy->id, $attendee->id],'class'=>'inline']) !!}

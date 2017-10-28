@@ -31,7 +31,8 @@
                     <th>#</th>
                     <th>Name</th>
                     <th>Mobile</th>
-                    @if(Auth::user()->hasAnyRole([\App\UserType::WOMEN_DEPT,\App\UserType::DEVELOPER]))
+                    @if(Auth::user()->hasAnyRole([\App\UserType::WOMEN_DEPT,\App\UserType::DEVELOPER, \App\UserType::ADMIN]))
+
 
                     <th>Actions</th>
                     @endif
@@ -44,7 +45,8 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $attendee->last_name.' '.$attendee->first_name }}</td>
                             <td>{{ $attendee->mobile }}</td>
-                            @if(Auth::user()->hasAnyRole([\App\UserType::WOMEN_DEPT,\App\UserType::DEVELOPER]))
+                            @if(Auth::user()->hasAnyRole([\App\UserType::WOMEN_DEPT,\App\UserType::DEVELOPER, \App\UserType::ADMIN]))
+
 
                             <td colspan="2">
                                 <a class="btn btn-info btn-xs" href="{{ route('sensitizations.attendees.edit', ['sensitization'=>$sensitization->id, 'attendee'=>$attendee->id]) }}"><i class="fa fa-pencil"></i> Edit</a>

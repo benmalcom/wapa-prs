@@ -63,7 +63,7 @@
                                 <div class="col-lg-9">
                                     <select class="form-control" required name="age">
                                         <option value="">-- Select --</option>
-                                        @foreach(\App\PovertyAlleviationProgram::age() as $value)
+                                        @foreach(\App\PovertyAlleviationProgram::ages() as $value)
                                             <option value="{{$value}}" @if(old('age') && old('age')== $value) selected @endif>{{$value}}</option>
                                         @endforeach
                                     </select>
@@ -72,7 +72,7 @@
                             <div class="form-group">
                                 <label class="control-label col-lg-3">Number of Children</label>
                                 <div class="col-lg-9">
-                                    <input type="text" class="form-control"value="{{ old('number_of_children') }}"  required placeholder="Number of Children"  name="number_of_children">
+                                    <input type="text" class="form-control" value="{{ old('number_of_children') }}"  required placeholder="Number of Children"  name="number_of_children">
                                 </div>
                             </div>
 

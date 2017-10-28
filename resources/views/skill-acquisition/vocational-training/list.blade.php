@@ -51,7 +51,7 @@
                     <th>Next of Kin Mobile</th>
                     <th>Next of Kin Email</th>
                     <th>Next of Kin Address</th>
-                    @if(Auth::user()->hasAnyRole([\App\UserType::SKILL_ACQUISITION,\App\UserType::DEVELOPER]))
+                    @if(Auth::user()->hasAnyRole([\App\UserType::SKILL_ACQUISITION,\App\UserType::DEVELOPER, \App\UserType::ADMIN]))
 
                     <th>Actions</th>
                     @endif
@@ -106,7 +106,7 @@
                             <td>{{ $member->nok_email ? $member->nok_email : 'N/A'}}</td>
                             <td>{{ $member->nok_address ? $member->nok_address : 'N/A'}}</td>
 
-                            @if(Auth::user()->hasAnyRole([\App\UserType::SKILL_ACQUISITION,\App\UserType::DEVELOPER]))
+                            @if(Auth::user()->hasAnyRole([\App\UserType::SKILL_ACQUISITION,\App\UserType::DEVELOPER, \App\UserType::ADMIN]))
 
 
                             <td colspan="2">

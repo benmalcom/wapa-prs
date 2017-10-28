@@ -49,7 +49,8 @@
                     <th>Next of Kin Mobile</th>
                     <th>Next of Kin Email</th>
                     <th>Next of Kin Address</th>
-                    @if(Auth::user()->hasAnyRole([\App\UserType::WOMEN_DEPT,\App\UserType::DEVELOPER]))
+                    @if(Auth::user()->hasAnyRole([\App\UserType::WOMEN_DEPT,\App\UserType::DEVELOPER, \App\UserType::ADMIN]))
+
 
                     <th>Actions</th>
                     @endif
@@ -105,7 +106,8 @@
                             <td>{{ $member->nok_mobile ? $member->nok_mobile : 'N/A'}}</td>
                             <td>{{ $member->nok_email ? $member->nok_email : 'N/A'}}</td>
                             <td>{{ $member->nok_address ? $member->nok_address : 'N/A'}}</td>
-                            @if(Auth::user()->hasAnyRole([\App\UserType::WOMEN_DEPT,\App\UserType::DEVELOPER]))
+                            @if(Auth::user()->hasAnyRole([\App\UserType::WOMEN_DEPT,\App\UserType::DEVELOPER, \App\UserType::ADMIN]))
+
 
                             <td colspan="2">
                                 <a class="btn btn-info btn-xs" href="{{ route('short-term-skills.edit',$member->id) }}"><i class="fa fa-pencil"></i> Edit</a>

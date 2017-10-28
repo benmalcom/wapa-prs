@@ -65,7 +65,7 @@ class ShortTermSkill extends Model
             'place_of_birth' => 'required',
             'date_of_birth' => 'required',
             'gender' => 'required',
-            'mobile' => ['required','regex:/^(\+2348|2348|08)[0-1][1-9][0-9]{7}$/'],
+            'mobile' => ['required','regex:/^(\+234[7-9]|234[7-9]|0[7-9])[0-1][1-9][0-9]{7}$/'],
             'disability' => 'required',
             'disability_nature' => 'required_if:disability,==,Yes',
 
@@ -74,7 +74,7 @@ class ShortTermSkill extends Model
             /*            'other_information' => 'required',*/
 
             'nok_name' => 'required',
-            'nok_mobile' => ['required','regex:/^(\+2348|2348|08)[0-1][1-9][0-9]{7}$/'],
+            'nok_mobile' => ['required','regex:/^(\+234[7-9]|234[7-9]|0[7-9])[0-1][1-9][0-9]{7}$/'],
             'nok_address' => 'required',
             'nok_occupation' => 'required',
             'nok_relationship' => 'required',
@@ -142,6 +142,7 @@ class ShortTermSkill extends Model
             'None',
             'Primary School Leaving Certificate',
             'JSCE',
+            'SSCE',
             'Other Technical Certificate',
             'OND',
             'HND',
