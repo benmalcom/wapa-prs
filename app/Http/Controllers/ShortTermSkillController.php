@@ -74,7 +74,7 @@ class ShortTermSkillController extends Controller
             foreach ($educations as &$education){
                 $education['model'] = ShortTermSkill::class;
                 $education['model_id'] = $data->id;
-                EducationalBackground::create($educations);
+                EducationalBackground::create($education);
             }
         }
 
