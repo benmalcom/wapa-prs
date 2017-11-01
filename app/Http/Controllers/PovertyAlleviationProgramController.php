@@ -5,10 +5,16 @@ namespace App\Http\Controllers;
 use App\Lga;
 use App\PovertyAlleviationProgram;
 use App\State;
+use App\Utils\RouteRoleUtils;
 use Illuminate\Http\Request;
 
 class PovertyAlleviationProgramController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(RouteRoleUtils::POVERTY_ALLEVIATION)->except('index');
+    }
+
     /**
      * Display a listing of the resource.
      *

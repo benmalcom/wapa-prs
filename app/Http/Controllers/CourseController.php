@@ -10,7 +10,7 @@ class CourseController extends Controller
 {
     public function __construct()
     {
-        $this->middleware([RouteRoleUtils::SKILL_ACQUISITION])->except('index');
+        $this->middleware(RouteRoleUtils::SKILL_ACQUISITION)->except('index');
     }
 
     /**

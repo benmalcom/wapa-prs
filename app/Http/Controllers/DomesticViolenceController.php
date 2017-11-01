@@ -12,7 +12,7 @@ class DomesticViolenceController extends Controller
 {
     public function __construct()
     {
-        $this->middleware([RouteRoleUtils::WOMEN_DEPARTMENT])->except('index');
+        $this->middleware(RouteRoleUtils::WOMEN_DEPARTMENT)->except('index');
     }
 
     /**

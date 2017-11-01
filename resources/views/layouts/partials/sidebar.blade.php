@@ -167,13 +167,14 @@
                     @role(\App\UserType::PRS.'|'.\App\UserType::DEVELOPER.'|'.\App\UserType::ADMIN)
                     <li class="navigation-header"><span>PRS</span> <i class="fa fa-female" title="Main pages"></i></li>
                     <li class="{{ \App\Helper::setActive("advocacies") }}"><a href="{{url('/advocacies')}}"><i class="fa fa-users"></i> <span>Advocacies</span></a></li>
-                    <li class="{{ \App\Helper::setActive("ngos") }}"><a href="{{url('/ngos')}}"><i class="fa fa-home"></i> <span>NGOs</span></a></li>
                     <li class="{{ \App\Helper::setActive("cooperative-societies") }}"><a href="{{url('/cooperative-societies')}}"><i class="fa fa-building"></i> <span>Women Cooperative Societies</span></a></li>
                     <li class="{{ \App\Helper::setActive("domestic-violences") }}"><a href="{{url('/domestic-violences')}}"><i class="fa fa-female"></i> <span>Violations</span></a></li>
-                    <li class="{{ \App\Helper::setActive("vocational-training-skills") }}"><a href="{{url('/vocational-training-skills')}}"><i class="fa fa-tasks"></i> <span>Vocational Training & Skill</span></a></li>
+                    <li class="{{ \App\Helper::setActive("ngos") }}"><a href="{{url('/ngos')}}"><i class="fa fa-home"></i> <span>NGOs</span></a></li>
                     <li class="{{ \App\Helper::setActive("programs") }}"><a href="{{url('/programs')}}"><i class="fa fa-female"></i> <span>Poverty Alleviation</span></a></li>
                     <li class="{{ \App\Helper::setActive("sensitizations") }}"><a href="{{url('/sensitizations')}}"><i class="fa fa-users"></i> <span>Sensitizations</span></a></li>
                     <li class="{{ \App\Helper::setActive("short-term-skills") }}"><a href="{{url('/short-term-skills')}}"><i class="fa fa-tasks"></i> <span>Short-term Skill Program</span></a></li>
+                    <li class="{{ \App\Helper::setActive("vocational-training-skills") }}"><a href="{{url('/vocational-training-skills')}}"><i class="fa fa-tasks"></i> <span>Vocational Training & Skill</span></a></li>
+
                     <!-- /main -->
                 @endrole
                 </ul>

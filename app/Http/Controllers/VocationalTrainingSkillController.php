@@ -16,7 +16,7 @@ class VocationalTrainingSkillController extends Controller
 {
     public function __construct()
     {
-        $this->middleware([RouteRoleUtils::SKILL_ACQUISITION, RouteRoleUtils::PRINCIPAL])->except('index');
+        $this->middleware(RouteRoleUtils::PRINCIPAL)->except('index');
     }
 
     /**
