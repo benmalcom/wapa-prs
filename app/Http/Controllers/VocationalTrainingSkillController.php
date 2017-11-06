@@ -32,6 +32,7 @@ class VocationalTrainingSkillController extends Controller
                 $query->where('model', VocationalTrainingSkill::class);
             }])->with('state', 'lga', 'course', 'center')
             ->paginate(self::ITEMS_PER_PAGE);
+        dd($members);
         return view('skill-acquisition.vocational-training.list', compact('members'));
     }
 

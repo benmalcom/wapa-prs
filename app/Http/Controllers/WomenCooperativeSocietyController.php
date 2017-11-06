@@ -11,7 +11,8 @@ class WomenCooperativeSocietyController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(RouteRoleUtils::POVERTY_ALLEVIATION)->except('index');
+        $this->middleware(RouteRoleUtils::POVERTY_ALLEVIATION, ['except' => 'index']);
+        $this->middleware(RouteRoleUtils::PRS, ['only' => 'index']);
     }
 
     /**

@@ -32,9 +32,7 @@
                     <th>Name</th>
                     <th>Division</th>
                     <th>Sub-Division</th>
-                    @if(Auth::user()->hasAnyRole([\App\UserType::POVERTY_ALLEVIATION,\App\UserType::DEVELOPER,\App\UserType::ADMIN]))
                     <th>Actions</th>
-                    @endif
                 </tr>
                 </thead>
                 <tbody>
@@ -45,16 +43,26 @@
                             <td>{{ $society->name }}</td>
                             <td>{{ $society->division }}</td>
                             <td>{{ $society->sub_division ? $society->sub_division : 'N/A'}}</td>
-                            @if(Auth::user()->hasAnyRole([\App\UserType::POVERTY_ALLEVIATION,\App\UserType::DEVELOPER,\App\UserType::ADMIN]))
                             <td colspan="2">
-                                <a class="btn btn-success btn-xs" href="{{ url('/cooperative-societies/'.$society->id.'/new-member') }}"><i class="fa fa-plus"></i> Member</a>
-                                <a class="btn btn-default btn-xs" href="{{ url('/cooperative-societies/'.$society->id.'/members') }}"><i class="fa fa-eye"></i> Members <span class="badge">{{ $society->members_count }}</span></a>
-                                <a class="btn btn-info btn-xs" href="{{ route('cooperative-societies.edit',$society->id) }}"><i class="fa fa-pencil"></i> Edit</a>
-                                {!! Form::open(['method' => 'DELETE','route' => ['cooperative-societies.destroy', $society->id],'class'=>'inline']) !!}
-                                {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
-                                {!! Form::close() !!}
+                                <a class="btn btn-default btn-xs"
+                                   href="{{ url('/cooperative-societies/'.$society->id.'/members') }}"><i
+                                            class="fa fa-eye"></i> Members <span
+                                            class="badge">{{ $society->members_count }}</span></a>
+
+                                @if(Auth::user()->hasAnyRole([\App\UserType::POVERTY_ALLEVIATION,\App\UserType::DEVELOPER,\App\UserType::ADMIN]))
+
+                                    <a class="btn btn-success btn-xs"
+                                       href="{{ url('/cooperative-societies/'.$society->id.'/new-member') }}"><i
+                                                class="fa fa-plus"></i> Member</a>
+                                    <a class="btn btn-info btn-xs"
+                                       href="{{ route('cooperative-societies.edit',$society->id) }}"><i
+                                                class="fa fa-pencil"></i> Edit</a>
+                                    {!! Form::open(['method' => 'DELETE','route' => ['cooperative-societies.destroy', $society->id],'class'=>'inline']) !!}
+                                    {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
+                                    {!! Form::close() !!}
+                                @endif
+
                             </td>
-                            @endif
 
                         </tr>
                     @endforeach
